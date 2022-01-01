@@ -1,0 +1,56 @@
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+.h1,
+.h2,
+.h3,
+.h4,
+.h5,
+.h6 {
+	word-break: break-word;
+	font-family: var(--secondary-font);
+	line-height: 1.2em;
+}
+
+h1,
+.h1 {
+	font-size: var(--h1);
+	margin: 0 0 2rem;
+}
+
+h2,
+.h2 {
+	font-size: var(--h2);
+	margin: 0 0 1.8rem;
+}
+
+h3,
+.h3 {
+	font-size: var(--h3);
+	margin: 0 0 1.6rem;
+}
+
+h4,
+.h4 {
+	font-size: var(--h4);
+	margin: 0 0 1.4rem;
+}
+
+h5,
+.h5 {
+	font-size: var(--h5);
+	margin: 0 0 1.2rem;
+}
+
+h6,
+.h6 {
+	font-size: var(--h6);
+	margin: 0 0 1rem;
+}
+
+a {
+	text-decoration: none;
+}

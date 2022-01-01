@@ -1,0 +1,93 @@
+:root[data-theme="theme-light"] {
+    --border-color: #ea7807;
+    --text-color: #333333;
+    --heading-color: #333333;
+    --bg-color: #ffffff;
+    --card-bg-color: #ffffff;
+}
+  
+:root[data-theme="theme-dark"] {
+    --border-color: #ea7807;
+    --text-color: #98989d;
+    --heading-color: #ffffff;
+    --bg-color: #151517;
+    --card-bg-color: #151517;
+}
+
+// Color system
+$bc-primary: #059DFF;
+$bc-secondary: #FB5343;
+$bc-third: #6549D5;
+
+.myGradient {
+    background-color: transparent;
+    background: linear-gradient(95deg, var(--color-primary) 15%, var(--color-tertiary) 45%, var(--color-pink) 75%, var(--color-secondary) 100%) 95%/200% 100% !important;
+}
+
+$bc-radius: 22px;
+
+// $shadow: 0px 5px 20px 0px rgba(0,0,0,0.3);
+$shadow: 0 16px 38px -12px rgba(0, 0, 0, 0.56), 0 4px 25px 0px rgba(0, 0, 0, 0.12), 0 8px 10px -5px rgba(0, 0, 0, 0.2);
+
+$filter-primary: invert(31%) sepia(95%) saturate(1495%) hue-rotate(157deg) brightness(95%) contrast(101%);
+$filter-secondary: invert(19%) sepia(99%) saturate(4082%) hue-rotate(345deg) brightness(94%) contrast(97%);
+$filter-body: invert(45%) sepia(0%) saturate(0%) hue-rotate(168deg) brightness(95%) contrast(81%);
+$filter-white: invert(100%) sepia(0%) saturate(21%) hue-rotate(287deg) brightness(104%) contrast(106%);
+
+// Fonts
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700;800&display=swap');
+// font-family: 'Open Sans', sans-serif;
+$body-font: 'Open Sans', sans-serif;
+$heading-font: 'Open Sans', sans-serif;
+
+$color-transitions: background-color 0.5s ease-in-out, color 0.3s ease-in-out, border 0.5s ease-in-out;
+$transition: all .5s ease-in-out;
+$transition-shadow: box-shadow .5s ease-in-out;
+
+$transition-logo: all .8s ease-in-out;
+
+$primary: $bc-primary;
+$secondary: $bc-secondary;
+
+$danger: #FF0003;
+$success: #3EB75E;
+$warning: #FF8F3C;
+$info: #1BA2DB;
+
+$gradient-bg-color: #4158D0;
+$gradient-bg-image: linear-gradient(43deg, #4158D0 0%, #C850C0 46%, #FFCC70 100%);
+
+.btn-gradient {
+    color: white !important;
+    border-color: transparent !important;
+    background: linear-gradient(
+        95deg, var(--color-primary) 15%,
+        var(--color-tertiary) 45%,
+        var(--color-pink) 75%,
+        var(--color-secondary) 100%
+        ) 95%/200% 100%;
+    transition: $transition;
+    &:hover {
+        box-shadow: var(--shadow-primary);
+        -webkit-filter: brightness(125%);
+        filter: brightness(125%);
+        color: var(--color-white);
+        text-decoration: none;
+        transition: $transition;
+    }
+}
+
+// Responsive basique
+
+@media screen and (min-width: 576px) {
+
+}
+@media screen and (min-width: 768px) {
+    
+}
+@media screen and (min-width: 992px) {
+    
+}
+@media screen and (min-width: 1200px) {
+    
+}

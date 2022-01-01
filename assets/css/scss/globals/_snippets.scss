@@ -1,0 +1,18 @@
+.flash-messages {
+    position: absolute;
+    top: 100px;
+    left: 20px;
+    z-index: 100;
+    animation: flashReveal 0.3s ease-in-out;
+}
+
+// Animations
+
+@keyframes flashReveal {
+    0% {
+        left: -100px;
+    }
+    100% {
+        left: 10px;
+    }
+}
