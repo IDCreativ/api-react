@@ -66,7 +66,7 @@ const TypographyPage = (props) => {
 			<hr className="my-5" />
 			<div className="row">
 				<div className="col">
-					<table class="table table-hover">
+					<table className="table table-hover">
 						<thead>
 							<tr>
 								<th scope="col">#</th>
@@ -139,7 +139,7 @@ const TypographyPage = (props) => {
 							</tr>
 							<tr>
 								<th scope="row">3</th>
-								<td colspan="2">Larry the Bird</td>
+								<td colSpan="2">Larry the Bird</td>
 								<td><a href="">@twitter</a></td>
 								<td className='text-center'>
 									<span className='badge bg-info text-light'>6</span>
