@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Mon application React{% endblock %}
+{% block title %}Mon application | {{ parent() }}{% endblock %}
 
 {% block stylesheets %}
     {{ encore_entry_link_tags('app') }}

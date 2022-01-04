@@ -1,83 +1,86 @@
-import React, { useState, useContext } from 'react';
-import AuthAPI from '../services/authAPI';
-import AuthContext from '../contexts/AuthContext';
+import React, { useState, useContext } from "react";
+import AuthAPI from "../services/authAPI";
+import AuthContext from "../contexts/AuthContext";
+import Field from "../components/forms/Field";
+import { Link } from "react-router-dom";
 
 const LoginPage = ({ history }) => {
+	const { setIsAuthenticated } = useContext(AuthContext);
 
-    const { setIsAuthenticated } = useContext(AuthContext);
+	const [credentials, setCredentials] = useState({
+		username: "",
+		password: "",
+	});
 
-    const [credentials, setCredentials] = useState({
-        username: '',
-        password: ''
-    });
+	const [error, setError] = useState("");
 
-    const [error, setError] = useState('');
+	// Gestion des champs
+	const handleChange = ({ currentTarget }) => {
+		const { name, value } = currentTarget;
+		setCredentials({ ...credentials, [name]: value });
+	};
 
-    // Gestion des champs
-    const handleChange = ({ currentTarget }) => {
-        const {name, value} = currentTarget;
-        setCredentials({...credentials, [name]: value});
-    };
+	// Gestion des submit
+	const handleSubmit = async (event) => {
+		event.preventDefault();
 
-    // Gestion des submit
-    const handleSubmit = async event => {
-        event.preventDefault();
+		try {
+			await AuthAPI.authenticate(credentials);
+			setError("");
+			setIsAuthenticated(true);
+			history.replace("/customers");
+		} catch (error) {
+			setError("Identifiants et/ou mot de passe incorrect(s).");
+		}
+	};
 
-        try {
-            await AuthAPI.authenticate(credentials);
-            setError('');
-            setIsAuthenticated(true);
-            history.replace('/customers');
-        } catch (error) {
-            setError(
-                'Identifiants et/ou mot de passe incorrect(s).'
-            );
-        }
-    }
+	return (
+		<>
 
-    return (
-        <>
-            <h1>Connexion à l'application</h1>
+			<div className="row">
+				<div className="col-md-6 mx-auto">
+					<div className="card shadow-sm">
+						<div className="card-header">
+							Connexion à l'application
+						</div>
+						<div className="card-body">
+							<form onSubmit={handleSubmit}>
+								<Field
+									// label="Votre e-mail"
+									name="username"
+									id="username"
+									placeholder="email@domain.com"
+									icon="fa-at"
+									value={credentials.username}
+									onChange={handleChange}
+									error={error}
+								/>
+								<Field
+									// label="Votre mot de passe"
+									type="password"
+									name="password"
+									id="password"
+									placeholder="Votre mot de passe"
+									icon="fa-lock"
+									value={credentials.password}
+									onChange={handleChange}
+								/>
+								<button type="submit" className="btn btn-success text-light">
+									Connexion
+								</button>
+							</form>
+						</div>
 
-            <div className='row'>
-                <div className='col-md-4 mx-auto'>
-                    <div className="card shadow-sm p-3">
-                        <form onSubmit={handleSubmit}>
-                            <div className='input-group mb-3'>
-                                <div className='input-group-text'><i className='fal fa-at fa-fw'></i></div>
-                                <input
-                                    type='text'
-                                    name='username'
-                                    id='username'
-                                    className={'form-control ' + (error && 'is-invalid')}
-                                    placeholder='email@domain.com'
-                                    value={credentials.username}
-                                    onChange={handleChange}
-                                />
-                                {error && <p className='invalid-feedback'>{error}</p>}
-                            </div>
-                            <div className='input-group mb-3'>
-                                <div className='input-group-text'><i className='fal fa-lock fa-fw'></i></div>
-                                <input
-                                    type='password'
-                                    name='password'
-                                    id='password'
-                                    className='form-control'
-                                    placeholder='mot de passe'
-                                    value={credentials.password}
-                                    onChange={handleChange}
-                                />
-                            </div>
-                            <button type='submit' className='btn btn-success text-light'>
-                                Je me connecte
-                            </button>
+						<div className="card-footer">
+							<Link to="/register">
+								<i className="fal fa-long-arrow-left me-1"></i>S'enregistrer
+							</Link>
+						</div>
+					</div>
+				</div>
+			</div>
+		</>
+	);
+};
 
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </>
-    );
-}
- 
 export default LoginPage;

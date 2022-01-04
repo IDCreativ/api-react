@@ -73,8 +73,8 @@ const TypographyPage = (props) => {
 								<th scope="col">First</th>
 								<th scope="col">Last</th>
 								<th scope="col">Handle</th>
-								<th className='text-center'>Factures</th>
-								<th className='text-center'>Montant total</th>
+								<th className="text-center">Factures</th>
+								<th className="text-center">Montant total</th>
 								<th />
 							</tr>
 						</thead>
@@ -83,28 +83,22 @@ const TypographyPage = (props) => {
 								<th scope="row">1</th>
 								<td>Mark</td>
 								<td>Otto</td>
-								<td><a href="">@mdo</a></td>
-								<td className='text-center'>
-									<span className='badge bg-info text-light'>12</span>
-								</td>
-								<td className='text-center'>
-									5 412,45 €
-								</td>
 								<td>
-									<button 
-										className='btn btn-outline-info btn-sm me-2'
-									>
-										<i className='fal fa-search'></i>
+									<a href="">@mdo</a>
+								</td>
+								<td className="text-center">
+									<span className="badge bg-info text-light">12</span>
+								</td>
+								<td className="text-center">5 412,45 €</td>
+								<td>
+									<button className="btn btn-outline-info btn-sm me-2">
+										<i className="fal fa-search"></i>
 									</button>
-									<button 
-										className='btn btn-outline-warning btn-sm me-2'
-									>
-										<i className='fal fa-pen'></i>
+									<button className="btn btn-outline-warning btn-sm me-2">
+										<i className="fal fa-pen"></i>
 									</button>
-									<button 
-										className='btn btn-outline-danger btn-sm'
-									>
-										<i className='fal fa-trash-alt'></i>
+									<button className="btn btn-outline-danger btn-sm">
+										<i className="fal fa-trash-alt"></i>
 									</button>
 								</td>
 							</tr>
@@ -112,56 +106,44 @@ const TypographyPage = (props) => {
 								<th scope="row">2</th>
 								<td>Jacob</td>
 								<td>Thornton</td>
-								<td><a href="">@fat</a></td>
-								<td className='text-center'>
-									<span className='badge bg-info text-light'>24</span>
-								</td>
-								<td className='text-center'>
-									7 820,35 €
-								</td>
 								<td>
-									<button 
-										className='btn btn-outline-info btn-sm me-2'
-									>
-										<i className='fal fa-search'></i>
+									<a href="">@fat</a>
+								</td>
+								<td className="text-center">
+									<span className="badge bg-info text-light">24</span>
+								</td>
+								<td className="text-center">7 820,35 €</td>
+								<td>
+									<button className="btn btn-outline-info btn-sm me-2">
+										<i className="fal fa-search"></i>
 									</button>
-									<button 
-										className='btn btn-outline-warning btn-sm me-2'
-									>
-										<i className='fal fa-pen'></i>
+									<button className="btn btn-outline-warning btn-sm me-2">
+										<i className="fal fa-pen"></i>
 									</button>
-									<button 
-										className='btn btn-outline-danger btn-sm'
-									>
-										<i className='fal fa-trash-alt'></i>
+									<button className="btn btn-outline-danger btn-sm">
+										<i className="fal fa-trash-alt"></i>
 									</button>
 								</td>
 							</tr>
 							<tr>
 								<th scope="row">3</th>
 								<td colSpan="2">Larry the Bird</td>
-								<td><a href="">@twitter</a></td>
-								<td className='text-center'>
-									<span className='badge bg-info text-light'>6</span>
-								</td>
-								<td className='text-center'>
-									3 425,90 €
-								</td>
 								<td>
-									<button 
-										className='btn btn-outline-info btn-sm me-2'
-									>
-										<i className='fal fa-search'></i>
+									<a href="">@twitter</a>
+								</td>
+								<td className="text-center">
+									<span className="badge bg-info text-light">6</span>
+								</td>
+								<td className="text-center">3 425,90 €</td>
+								<td>
+									<button className="btn btn-outline-info btn-sm me-2">
+										<i className="fal fa-search"></i>
 									</button>
-									<button 
-										className='btn btn-outline-warning btn-sm me-2'
-									>
-										<i className='fal fa-pen'></i>
+									<button className="btn btn-outline-warning btn-sm me-2">
+										<i className="fal fa-pen"></i>
 									</button>
-									<button 
-										className='btn btn-outline-danger btn-sm'
-									>
-										<i className='fal fa-trash-alt'></i>
+									<button className="btn btn-outline-danger btn-sm">
+										<i className="fal fa-trash-alt"></i>
 									</button>
 								</td>
 							</tr>
