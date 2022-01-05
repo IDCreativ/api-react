@@ -3,6 +3,8 @@ import Pagination from "../components/Pagination";
 import InvoicesAPI from "../services/invoicesAPI";
 import moment from "moment";
 import { Link } from "react-router-dom";
+import { toast } from "react-toastify";
+import TableLoader from "../components/loaders/TableLoader";
 
 const STATUS_CLASSES = {
 	PAID: "success",
@@ -20,6 +22,8 @@ const InvoicesPage = (props) => {
 	const [invoices, setInvoices] = useState([]);
 	const [currentPage, setCurrentPage] = useState(1);
 	const [search, setSearch] = useState("");
+	const [loading, setLoading] = useState(true);
+
 	const itemsPerPage = 10;
 
 	const formatDate = (str) => moment(str).format("DD/MM/YYYY");
@@ -29,13 +33,18 @@ const InvoicesPage = (props) => {
 		try {
 			const data = await InvoicesAPI.findAll();
 			setInvoices(data);
+			setLoading(false);
 		} catch (error) {
 			console.error(error.response);
+			toast.success("Erreur lors du chargement des factures.");
 		}
 	};
 
 	useEffect(() => {
-		fetchInvoices();
+		const timer = setTimeout(() => {
+			fetchInvoices();
+		}, 1000);
+		return () => clearTimeout(timer);
 	}, []);
 
 	// Gestion de la suppression d'un Customer
@@ -46,8 +55,10 @@ const InvoicesPage = (props) => {
 
 		try {
 			await InvoicesAPI.delete(id);
+			toast.success("La facture a bien été supprimée.");
 		} catch (error) {
 			setInvoices(originalInvoices);
+			toast.error("Une erreur est survenue.");
 		}
 	};
 
@@ -107,43 +118,46 @@ const InvoicesPage = (props) => {
 						<th />
 					</tr>
 				</thead>
-				<tbody>
-					{paginatedInvoices.map((invoice) => (
-						<tr key={invoice.id}>
-							<td>{invoice.chrono}</td>
-							<td>
-								<a href="#">
-									{invoice.customer.firstName} {invoice.customer.lastName}
-								</a>
-							</td>
-							<td className="text-center">{formatDate(invoice.sentAt)}</td>
-							<td className="text-center">
-								<span
-									className={
-										"badge bg-" + STATUS_CLASSES[invoice.status] + " text-light"
-									}
-								>
-									{STATUS_LABELS[invoice.status]}
-								</span>
-							</td>
-							<td className="text-center">
-								{invoice.amount.toLocaleString()} €
-							</td>
-							<td>
-								<Link to={"/invoices/" + invoice.id} className="btn btn-outline-warning btn-sm me-2">
-									<i className="fal fa-pen"></i>
-								</Link>
-								<button
-									className="btn btn-outline-danger btn-sm"
-									onClick={() => handleDelete(invoice.id)}
-								>
-									<i className="fal fa-trash-alt"></i>
-								</button>
-							</td>
-						</tr>
-					))}
-				</tbody>
+				{!loading && (
+					<tbody>
+						{paginatedInvoices.map((invoice) => (
+							<tr key={invoice.id}>
+								<td>{invoice.chrono}</td>
+								<td>
+									<Link to={"/customers/" + invoice.customer.id}>
+										{invoice.customer.firstName} {invoice.customer.lastName}
+									</Link>
+								</td>
+								<td className="text-center">{formatDate(invoice.sentAt)}</td>
+								<td className="text-center">
+									<span
+										className={
+											"badge bg-" + STATUS_CLASSES[invoice.status] + " text-light"
+										}
+									>
+										{STATUS_LABELS[invoice.status]}
+									</span>
+								</td>
+								<td className="text-center">
+									{invoice.amount.toLocaleString()} €
+								</td>
+								<td>
+									<Link to={"/invoices/" + invoice.id} className="btn btn-outline-warning btn-sm me-2">
+										<i className="fal fa-pen"></i>
+									</Link>
+									<button
+										className="btn btn-outline-danger btn-sm"
+										onClick={() => handleDelete(invoice.id)}
+									>
+										<i className="fal fa-trash-alt"></i>
+									</button>
+								</td>
+							</tr>
+						))}
+					</tbody>
+				)}
 			</table>
+			{loading && <TableLoader></TableLoader>}
 
 			<Pagination
 				currentPage={currentPage}

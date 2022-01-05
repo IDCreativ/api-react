@@ -17,6 +17,7 @@ import InvoicePage from "./pages/InvoicePage";
 import TypographyPage from "./pages/TypographyPage";
 import LoginPage from "./pages/LoginPage";
 import RegisterPage from "./pages/RegisterPage";
+import { ToastContainer, toast } from "react-toastify";
 // import CustomersPageWithPagination from "./pages/CustomersPageWithPagination";
 
 console.log("Lancement de react.js");
@@ -53,6 +54,17 @@ const App = () => {
 					</Switch>
 				</main>
 			</HashRouter>
+			<ToastContainer
+				position="bottom-center"
+				autoClose={5000}
+				hideProgressBar={false}
+				newestOnTop={false}
+				closeOnClick
+				rtl={false}
+				pauseOnFocusLoss
+				draggable
+				pauseOnHover
+			/>
 		</AuthContext.Provider>
 	);
 };

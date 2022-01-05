@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import Field from "../components/forms/Field";
 import customersAPI from "../services/customersAPI";
+import { toast } from "react-toastify";
+import FormContentLoader from "../components/loaders/FormContentLoader";
 
 const CustomerPage = ({ history, match }) => {
 	const { id = "new" } = match.params;
@@ -20,24 +22,31 @@ const CustomerPage = ({ history, match }) => {
 		company: "",
 	});
 
+	const [loading, setLoading] = useState(false);
 	const [editing, setEditing] = useState(false);
 
 	// Récupération du customer en focntion de l'identifiant
-	const fetchCustomer = async id => {
+	const fetchCustomer = async (id) => {
 		try {
-			const { firstName, lastName, email, company } =
-				await customersAPI.find(id);
+			const { firstName, lastName, email, company } = await customersAPI.find(
+				id
+			);
 			setCustomer({ firstName, lastName, email, company });
+			setLoading(false);
 		} catch (error) {
-			// Todo : Notoification flash d'une erreur
 			history.replace("/customers");
+			toast.error("Une erreur est survenue.");
 		}
 	};
 	// Chargement du customer si besoin au chargement du composant ou au changement de l'identifiant
 	useEffect(() => {
 		if (id !== "new") {
+			setLoading(true);
 			setEditing(true);
-			fetchCustomer(id);
+			const timer = setTimeout(() => {
+				fetchCustomer(id);
+			}, 1000);
+			return () => clearTimeout(timer);
 		}
 	}, [id]);
 
@@ -54,10 +63,10 @@ const CustomerPage = ({ history, match }) => {
 		try {
 			if (editing) {
 				await customersAPI.update(id, customer);
-				// Todo : Flash notification de succès
+				toast.success("Le client a bien été modifié.");
 			} else {
 				await customersAPI.create(customer);
-				// Todo : Flash notification de succès
+				toast.success("Le client a bien été créé.");
 				history.replace("/customers");
 			}
 			setErrors({});
@@ -70,7 +79,7 @@ const CustomerPage = ({ history, match }) => {
 				});
 
 				setErrors(apiErrors);
-				// Todo : Flash notification des erreurs
+				toast.error("Une erreur est survenue.");
 			}
 		}
 	};
@@ -81,46 +90,50 @@ const CustomerPage = ({ history, match }) => {
 				<h1>Modification d'un client</h1>
 			)}
 
-			<form onSubmit={handleSubmit}>
-				<Field
-					name="lastName"
-					label="Nom"
-					placeholder="Nom"
-					value={customer.lastName}
-					onChange={handleChange}
-					error={errors.lastName}
-				/>
-				<Field
-					name="firstName"
-					label="Prénom"
-					placeholder="Prénom"
-					value={customer.firstName}
-					onChange={handleChange}
-					error={errors.firstName}
-				/>
-				<Field
-					name="email"
-					label="E-mail"
-					placeholder="E-mail"
-					value={customer.email}
-					onChange={handleChange}
-					error={errors.email}
-				/>
-				<Field
-					name="company"
-					label="Entreprise"
-					placeholder="Entreprise"
-					value={customer.company}
-					onChange={handleChange}
-					error={errors.company}
-				/>
+			{loading && <FormContentLoader />}
 
-				<div className="form-group mt-3">
-					<button type="submit" className="btn btn-success text-light">
-						Enregistrer
-					</button>
-				</div>
-			</form>
+			{!loading && (
+				<form onSubmit={handleSubmit}>
+					<Field
+						name="lastName"
+						label="Nom"
+						placeholder="Nom"
+						value={customer.lastName}
+						onChange={handleChange}
+						error={errors.lastName}
+					/>
+					<Field
+						name="firstName"
+						label="Prénom"
+						placeholder="Prénom"
+						value={customer.firstName}
+						onChange={handleChange}
+						error={errors.firstName}
+					/>
+					<Field
+						name="email"
+						label="E-mail"
+						placeholder="E-mail"
+						value={customer.email}
+						onChange={handleChange}
+						error={errors.email}
+					/>
+					<Field
+						name="company"
+						label="Entreprise"
+						placeholder="Entreprise"
+						value={customer.company}
+						onChange={handleChange}
+						error={errors.company}
+					/>
+
+					<div className="form-group mt-3">
+						<button type="submit" className="btn btn-success text-light">
+							Enregistrer
+						</button>
+					</div>
+				</form>
+			)}
 
 			<div className="row mt-3">
 				<div className="col">

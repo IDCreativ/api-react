@@ -3,6 +3,7 @@ import AuthAPI from "../services/authAPI";
 import AuthContext from "../contexts/AuthContext";
 import Field from "../components/forms/Field";
 import { Link } from "react-router-dom";
+import { toast } from "react-toastify";
 
 const LoginPage = ({ history }) => {
 	const { setIsAuthenticated } = useContext(AuthContext);
@@ -28,15 +29,17 @@ const LoginPage = ({ history }) => {
 			await AuthAPI.authenticate(credentials);
 			setError("");
 			setIsAuthenticated(true);
+
+			toast.success("Vous êtes désormais connecté.");
 			history.replace("/customers");
 		} catch (error) {
 			setError("Identifiants et/ou mot de passe incorrect(s).");
+			toast.error("Une erreur est survenue.");
 		}
 	};
 
 	return (
 		<>
-
 			<div className="row">
 				<div className="col-md-6 mx-auto">
 					<div className="card shadow-sm">

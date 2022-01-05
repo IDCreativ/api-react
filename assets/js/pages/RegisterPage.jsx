@@ -33,13 +33,14 @@ const RegisterPage = ({ history }) => {
 		if (user.password !== user.passwordConfirm) {
 			apiErrors.passwordConfirm = "Les mots de passe doivent correspondre.";
 			setErrors(apiErrors);
+			toast.error("Votre formulaire contient des erreurs.");
 			return;
 		}
 
 		try {
 			await UsersAPI.register(user);
 			setErrors({});
-			// Todo : Flash du succès
+			toast.success("Inscription réussie. Vous pouvez vous connecter.");
 			history.replaceState("/login");
 		} catch (error) {
 			console.log(error.response);
@@ -50,6 +51,7 @@ const RegisterPage = ({ history }) => {
 					apiErrors[violation.propertyPath] = violation.message;
 				});
 				setErrors(apiErrors);
+				toast.error("Votre formulaire contient des erreurs.");
 			}
 		}
 	};
