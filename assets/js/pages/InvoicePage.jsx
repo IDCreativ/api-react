@@ -90,9 +90,9 @@ const InvoicePage = ({ history, match }) => {
 				toast.success("La facture a bien été créée.");
 				history.replace("/invoices");
 			}
+			setErrors({});
 		} catch ({ response }) {
 			const { violations } = response.data;
-
 			if (violations) {
 				const apiErrors = {};
 				violations.forEach(({ propertyPath, message }) => {
